@@ -1,13 +1,20 @@
 import { Outlet } from "react-router-dom";
-import Footer from "./Footer";
+import { useContext } from "react";
+
+import { AuthContext } from "../../context/AuthContext";
+
 import PublicNavbar from "./PublicNavbar";
+import UserNavbar from "./UserNavbar";
+import Footer from "./Footer";
 
 function MainLayout() {
+  const { user } = useContext(AuthContext);
+
   return (
     <div className="d-flex flex-column min-vh-100">
-      <PublicNavbar />
+      {user ? <UserNavbar /> : <PublicNavbar />}
 
-      <main className="flex-grow-1 container mt-4">
+      <main className="container flex-grow-1 mt-4">
         <Outlet />
       </main>
 

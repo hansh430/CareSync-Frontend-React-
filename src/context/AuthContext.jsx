@@ -11,26 +11,22 @@ export const AuthProvider = ({ children }) => {
         const storedUser = localStorage.getItem("user");
 
         if (storedUser) {
-
             setUser(JSON.parse(storedUser));
         }
 
     }, []);
 
-    const login = (response) => {
+   const login = ({ token, user }) => {
 
-        localStorage.setItem(
-            "token",
-            response.token
-        );
+    localStorage.setItem("token", token);
 
-        localStorage.setItem(
-            "user",
-            JSON.stringify(response.user)
-        );
+    localStorage.setItem(
+        "user",
+        JSON.stringify(user)
+    );
 
-        setUser(response.user);
-    };
+    setUser(user);
+};
 
     const logout = () => {
 
