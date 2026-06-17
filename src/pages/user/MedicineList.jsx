@@ -1,11 +1,33 @@
 import { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { getMedicines } from "../../services/medicineService";
+import { addToCart } from "../../services/cartService";
 
-function Medicines() {
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+function MedicineList() {
   const [medicines, setMedicines] = useState([]);
 
   const [loading, setLoading] = useState(true);
+
+  const handleAddToCart = async (medicine) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+
+        alert("Please login first.");
+        return;
+    }
+    try {
+      await addToCart({
+        medicineId: medicine.id,
+        quantity: 1,
+      });
+       alert("Added successfully.");
+    } catch (error) {
+      console.log(error);
+
+      alert("Unable to add item.");
+    }
+  };
 
   useEffect(() => {
     fetchMedicines();
@@ -36,7 +58,7 @@ function Medicines() {
           <div className="col-md-4 mb-4" key={medicine.id}>
             <div className="card h-100 shadow">
               <img
-                src={`https://localhost:7067${medicine.imageUrl}`}
+                src={`${SERVER_URL}${medicine.imageUrl}`}
                 className="card-img-top"
                 style={{
                   height: "220px",
@@ -63,7 +85,12 @@ function Medicines() {
                   {medicine.quantity}
                 </p>
 
-                <button className="btn btn-primary w-100">Add To Cart</button>
+                <button
+                  className="btn btn-primary w-100"
+                  onClick={() => handleAddToCart(medicine)}
+                >
+                  Add To Cart
+                </button>
               </div>
             </div>
           </div>
@@ -73,4 +100,4 @@ function Medicines() {
   );
 }
 
-export default Medicines;
+export default MedicineList;

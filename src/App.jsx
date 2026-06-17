@@ -7,17 +7,22 @@ import Home from "./pages/user/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import AdminLogin from "./pages/auth/AdminLogin";
+
 import Dashboard from "./pages/admin/Dashboard";
+
+import MedicineList from "./pages/user/MedicineList";
+import Cart from "./pages/user/Cart";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import PublicRoute from "./routes/PublicRoute";
-import Medicines from "./pages/user/Medicines";
-
+import Orders from "./pages/user/Orders";
+import AdminMedicineList from "./pages/admin/AdminMedicineList";
+import EditMedicine from "./pages/admin/EditMedicine";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public Layout */}
+        {/* ================= Public/User Layout ================= */}
 
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
@@ -48,11 +53,38 @@ function App() {
               </PublicRoute>
             }
           />
+
+          {/* User Protected Pages */}
+
+          <Route
+            path="/medicines"
+            element={
+              <ProtectedRoute allowedRole="User">
+                <MedicineList />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute allowedRole="User">
+                <Cart />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/orders"
+            element={
+              <ProtectedRoute allowedRole="User">
+                <Orders />
+              </ProtectedRoute>
+            }
+          />
         </Route>
 
-        <Route path="/medicines" element={<Medicines />} />
-
-        {/* Admin Layout */}
+        {/* ================= Admin Layout ================= */}
 
         <Route
           element={
@@ -61,6 +93,10 @@ function App() {
             </ProtectedRoute>
           }
         >
+          <Route path="/admin/medicines" element={<AdminMedicineList />} />
+          <Route path="/admin/medicines/add" element={<AddMedicine />} />
+          <Route path="/admin/medicines/edit/:id" element={<EditMedicine />} />
+
           <Route path="/admin/dashboard" element={<Dashboard />} />
         </Route>
       </Routes>

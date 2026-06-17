@@ -38,9 +38,9 @@ function AdminSidebar() {
         </li>
 
         <li className="nav-item mb-2">
-          <NavLink className="nav-link text-white" to="/admin/customers">
+          <NavLink className="nav-link text-white" to="/admin/users">
             <i className="bi bi-people me-2"></i>
-            Customers
+            Users
           </NavLink>
         </li>
 

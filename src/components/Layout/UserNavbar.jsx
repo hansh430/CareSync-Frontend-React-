@@ -35,7 +35,7 @@ function UserNavbar() {
           </Link>
 
           <Link className="nav-link" to="/orders">
-            Orders
+            My Orders
           </Link>
 
           <button className="btn btn-danger ms-3" onClick={handleLogout}>
