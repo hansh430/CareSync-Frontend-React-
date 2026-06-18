@@ -18,6 +18,7 @@ import PublicRoute from "./routes/PublicRoute";
 import Orders from "./pages/user/Orders";
 import AdminMedicineList from "./pages/admin/AdminMedicineList";
 import EditMedicine from "./pages/admin/EditMedicine";
+import AddMedicine from "./pages/admin/AddMedicine";
 function App() {
   return (
     <BrowserRouter>
