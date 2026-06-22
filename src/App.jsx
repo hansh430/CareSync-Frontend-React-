@@ -15,10 +15,13 @@ import Cart from "./pages/user/Cart";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import PublicRoute from "./routes/PublicRoute";
-import Orders from "./pages/user/Orders";
 import AdminMedicineList from "./pages/admin/AdminMedicineList";
 import EditMedicine from "./pages/admin/EditMedicine";
 import AddMedicine from "./pages/admin/AddMedicine";
+import Users from "./pages/admin/Users";
+import Orders from "./pages/admin/Orders";
+import UserOrders from "./pages/user/UserOrders";
+import OrderDetails from "./pages/admin/OrderDetails";
 function App() {
   return (
     <BrowserRouter>
@@ -79,7 +82,7 @@ function App() {
             path="/orders"
             element={
               <ProtectedRoute allowedRole="User">
-                <Orders />
+                <UserOrders />
               </ProtectedRoute>
             }
           />
@@ -99,6 +102,9 @@ function App() {
           <Route path="/admin/medicines/edit/:id" element={<EditMedicine />} />
 
           <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/users" element={<Users />} />
+          <Route path="/admin/orders" element={<Orders />} />
+          <Route path="/admin/orders/:id" element={<OrderDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>

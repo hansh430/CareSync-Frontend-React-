@@ -1,4 +1,4 @@
-function Orders() {
+function UserOrders() {
 
     return (
 
@@ -14,4 +14,4 @@ function Orders() {
 
 }
 
-export default Orders;
+export default UserOrders;
