@@ -5,10 +5,13 @@ import {
   removeCartItem,
   updateCart,
 } from "../../services/cartService";
+import { placeOrder } from "../../services/OrderService";
+import { useNavigate } from "react-router-dom";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 function Cart() {
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -71,6 +74,19 @@ function Cart() {
       </div>
     );
   }
+
+  const handleCheckout = async () => {
+    if (!window.confirm("Place this Order?")) return;
+
+    try {
+      const response = await placeOrder();
+      alert(response.data.message);
+
+      navigate("/my-orders");
+    } catch (error) {
+      alert(error.response?.data || "Unable to place order");
+    }
+  };
 
   return (
     <div className="container mt-4">
@@ -143,7 +159,7 @@ function Cart() {
               <h4>₹{grandTotal}</h4>
             </div>
 
-            <button className="btn btn-success mt-3">
+            <button className="btn btn-success mt-3" onClick={handleCheckout}>
               Proceed To Checkout
             </button>
           </div>

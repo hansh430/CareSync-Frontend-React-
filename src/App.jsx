@@ -22,6 +22,7 @@ import Users from "./pages/admin/Users";
 import Orders from "./pages/admin/Orders";
 import UserOrders from "./pages/user/UserOrders";
 import OrderDetails from "./pages/admin/OrderDetails";
+import UserOrderDetails from "./pages/user/UserOrderDetails";
 function App() {
   return (
     <BrowserRouter>
@@ -79,10 +80,19 @@ function App() {
           />
 
           <Route
-            path="/orders"
+            path="/my-orders"
             element={
               <ProtectedRoute allowedRole="User">
                 <UserOrders />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/my-orders/:id"
+            element={
+              <ProtectedRoute allowedRole="User">
+                <UserOrderDetails />
               </ProtectedRoute>
             }
           />

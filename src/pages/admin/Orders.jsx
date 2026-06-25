@@ -21,10 +21,30 @@ function Orders() {
   const handleStatusChange = async (orderId, status) => {
     try {
       await updateOrderStatus(orderId, status);
+      alert("Status updated.");
       loadOrders();
     } catch (error) {
       console.log(error);
       alert("Unable to update order status.");
+    }
+  };
+
+  const getAvailableStatuses = (currentStatus) => {
+    switch (currentStatus) {
+      case "Pending":
+        return ["Pending", "Processing", "Cancelled"];
+
+      case "Processing":
+        return ["Processing", "Done", "Cancelled"];
+
+      case "Done":
+        return ["Done"];
+
+      case "Cancelled":
+        return ["Cancelled"];
+
+      default:
+        return [];
     }
   };
 
@@ -77,10 +97,11 @@ function Orders() {
                   value={order.orderStatus}
                   onChange={(e) => handleStatusChange(order.id, e.target.value)}
                 >
-                  <option value="Pending">Pending</option>
-                  <option value="Processing">Processing</option>
-                  <option value="Done">Done</option>
-                  <option value="Cancelled">Cancelled</option>
+                  {getAvailableStatuses(order.orderStatus).map((status) => (
+                    <option key={status} value={status}>
+                      {status}
+                    </option>
+                  ))}
                 </select>
               </td>
 
