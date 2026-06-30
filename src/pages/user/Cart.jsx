@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 import {
   getCart,
@@ -58,7 +59,7 @@ function Cart() {
 
     try {
       await removeCartItem(cartId);
-
+      toast.success("Medicine removed successfully.");
       loadCart();
     } catch (error) {
       console.log(error);
@@ -69,8 +70,8 @@ function Cart() {
 
   if (loading) {
     return (
-      <div className="container mt-5">
-        <h3>Loading cart...</h3>
+      <div className="d-flex justify-content-center mt-5">
+        <div className="spinner-border text-success"></div>
       </div>
     );
   }
@@ -80,11 +81,11 @@ function Cart() {
 
     try {
       const response = await placeOrder();
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       navigate("/my-orders");
     } catch (error) {
-      alert(error.response?.data || "Unable to place order");
+      toast.error(error.response?.data || "Unable to place order");
     }
   };
 

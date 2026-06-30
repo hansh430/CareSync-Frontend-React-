@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addMedicine } from "../../services/adminMedicineService";
-
+import { toast } from "react-toastify";
 function AddMedicine() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -45,12 +45,12 @@ function AddMedicine() {
         data.append("imageFile", imageFile);
       }
       await addMedicine(data);
-      alert("Medicine added successfully.");
+      toast.success("Medicine added successfully.");
 
       navigate("/admin/medicines");
     } catch (error) {
       console.log(error);
-      alert("Unable to add medicine.");
+      toast.error("Unable to add medicine.");
     }
   };
 

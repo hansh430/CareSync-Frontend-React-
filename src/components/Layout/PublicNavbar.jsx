@@ -41,12 +41,6 @@ function PublicNavbar() {
                 Register
               </Link>
             </li>
-
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin-login">
-                Admin
-              </Link>
-            </li>
           </ul>
         </div>
       </div>

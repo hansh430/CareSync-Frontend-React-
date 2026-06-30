@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { addFund, getUsers } from "../../services/adminUserService";
+import { toast } from "react-toastify";
 
 function Users() {
   const [users, setUsers] = useState([]);
@@ -34,18 +35,18 @@ function Users() {
 
   const handleAddFund = async () => {
     if (!amount || amount <= 0) {
-      alert("Enter Valid amount");
+      toast.error("Enter Valid amount");
       return;
     }
     try {
       await addFund(selectedUser.id, Number(amount));
-      alert("Fund added successfully. ");
+      toast.success("Fund added successfully. ");
       setAmount("");
       setSelectedUser(null);
       loadUsers();
     } catch (error) {
       console.log(error);
-      alert("Unable to add fund.");
+      toast.error("Unable to add fund.");
     }
   };
 

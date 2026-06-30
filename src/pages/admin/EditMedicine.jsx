@@ -5,6 +5,8 @@ import {
   updateMedicine,
 } from "../../services/adminMedicineService";
 
+import { toast } from "react-toastify";
+
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 function EditMedicine() {
@@ -83,12 +85,12 @@ function EditMedicine() {
 
       await updateMedicine(id, data);
 
-      alert("Medicine updated successfully.");
+      toast.success("Medicine updated successfully.");
 
       navigate("/admin/medicines");
     } catch (error) {
       console.log(error);
-      alert("Unable to update medicine.");
+      toast.error("Unable to update medicine.");
     }
   };
 

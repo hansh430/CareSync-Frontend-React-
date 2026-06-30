@@ -19,8 +19,8 @@ const Dashboard = () => {
 
   if (!dashboard) {
     return (
-      <div className="container mt-4">
-        <h3>Loading...</h3>
+      <div className="d-flex justify-content-center mt-5">
+        <div className="spinner-border text-success"></div>
       </div>
     );
   }

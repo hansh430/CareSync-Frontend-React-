@@ -2,17 +2,23 @@ import { useEffect, useState } from "react";
 import { getOrders, updateOrderStatus } from "../../services/adminOrderService";
 import { Link } from "react-router-dom";
 
+import { toast } from "react-toastify";
+
 function Orders() {
   const [orders, setOrders] = useState([]);
+  const [page, setPage] = useState(1);
+  const pageSize = 10;
 
+  const [totalPages, setTotalPages] = useState(1);
   useEffect(() => {
     loadOrders();
-  }, []);
+  }, [page]);
 
   const loadOrders = async () => {
     try {
-      const response = await getOrders();
-      setOrders(response.data.data);
+      const response = await getOrders(page, pageSize);
+      setOrders(response.data.data.items);
+      setTotalPages(response.data.data.totalPages);
     } catch (error) {
       console.log(error);
     }
@@ -21,11 +27,11 @@ function Orders() {
   const handleStatusChange = async (orderId, status) => {
     try {
       await updateOrderStatus(orderId, status);
-      alert("Status updated.");
+      toast.success("Status updated.");
       loadOrders();
     } catch (error) {
       console.log(error);
-      alert("Unable to update order status.");
+      toast.error("Unable to update order status.");
     }
   };
 
@@ -45,6 +51,25 @@ function Orders() {
 
       default:
         return [];
+    }
+  };
+
+  const getBadgeClass = (status) => {
+    switch (status) {
+      case "Pending":
+        return "bg-warning text-dark";
+
+      case "Processing":
+        return "bg-primary";
+
+      case "Done":
+        return "bg-success";
+
+      case "Cancelled":
+        return "bg-danger";
+
+      default:
+        return "bg-secondary";
     }
   };
 
@@ -74,19 +99,7 @@ function Orders() {
               <td>₹ {order.orderTotal}</td>
 
               <td>
-                <span
-                  className={
-                    order.orderStatus === "Pending"
-                      ? "badge bg-warning text-dark"
-                      : order.orderStatus === "Processing"
-                        ? "badge bg-info"
-                        : order.orderStatus === "Delivered"
-                          ? "badge bg-success"
-                          : order.orderStatus === "Cancelled"
-                            ? "badge bg-danger"
-                            : "badge bg-secondary"
-                  }
-                >
+                <span className={`badge ${getBadgeClass(order.orderStatus)}`}>
                   {order.orderStatus}
                 </span>
               </td>
@@ -117,6 +130,33 @@ function Orders() {
           ))}
         </tbody>
       </table>
+
+      <nav className="mt-4">
+        <ul className="pagination justify-content-center">
+          <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
+            <button className="page-link" onClick={() => setPage(page - 1)}>
+              Previous
+            </button>
+          </li>
+
+          {Array.from({ length: totalPages }, (_, i) => (
+            <li
+              key={i}
+              className={`page-item ${page === i + 1 ? "active" : ""}`}
+            >
+              <button className="page-link" onClick={() => setPage(i + 1)}>
+                {i + 1}
+              </button>
+            </li>
+          ))}
+
+          <li className={`page-item ${page === totalPages ? "disabled" : ""}`}>
+            <button className="page-link" onClick={() => setPage(page + 1)}>
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 }

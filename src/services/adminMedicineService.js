@@ -1,10 +1,5 @@
 import api from "../api/axios";
 
-// Get all medicines
-export const getMedicines = () => {
-  return api.get("/Medicine");
-};
-
 // Get medicine by id
 export const getMedicineById = (id) => {
   return api.get(`/Medicine/${id}`);

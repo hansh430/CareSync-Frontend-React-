@@ -4,8 +4,10 @@ export const placeOrder = () => {
   return api.post("/Orders/place-order");
 };
 
-export const getMyOrders = () => {
-  return api.get("/Orders/my-orders");
+export const getMyOrders = (page = 1, pageSize = 10) => {
+    return api.get(
+        `/Orders/my-orders?page=${page}&pageSize=${pageSize}`
+    );
 };
 
 export const getUserOrderDetails = (orderId) => {

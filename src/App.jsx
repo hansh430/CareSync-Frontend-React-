@@ -6,7 +6,6 @@ import AdminLayout from "./components/layout/AdminLayout";
 import Home from "./pages/user/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-import AdminLogin from "./pages/auth/AdminLogin";
 
 import Dashboard from "./pages/admin/Dashboard";
 
@@ -23,6 +22,7 @@ import Orders from "./pages/admin/Orders";
 import UserOrders from "./pages/user/UserOrders";
 import OrderDetails from "./pages/admin/OrderDetails";
 import UserOrderDetails from "./pages/user/UserOrderDetails";
+import PublicHome from "./pages/public/PublicHome";
 function App() {
   return (
     <BrowserRouter>
@@ -30,8 +30,6 @@ function App() {
         {/* ================= Public/User Layout ================= */}
 
         <Route element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
-
           <Route
             path="/login"
             element={
@@ -50,17 +48,25 @@ function App() {
             }
           />
 
-          <Route
-            path="/admin-login"
+           <Route
+            path="/"
             element={
               <PublicRoute>
-                <AdminLogin />
+                <PublicHome />
               </PublicRoute>
             }
           />
 
           {/* User Protected Pages */}
 
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute allowedRole="User">
+                <Home/>
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/medicines"
             element={
