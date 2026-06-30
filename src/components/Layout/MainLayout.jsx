@@ -14,7 +14,7 @@ function MainLayout() {
     <div className="d-flex flex-column min-vh-100">
       {user ? <UserNavbar /> : <PublicNavbar />}
 
-      <main className="container flex-grow-1 mt-4">
+      <main className="container flex-grow-1" style={{ marginTop: "30px" }}>
         <Outlet />
       </main>
 

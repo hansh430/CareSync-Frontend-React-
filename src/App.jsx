@@ -23,6 +23,7 @@ import UserOrders from "./pages/user/UserOrders";
 import OrderDetails from "./pages/admin/OrderDetails";
 import UserOrderDetails from "./pages/user/UserOrderDetails";
 import PublicHome from "./pages/public/PublicHome";
+import HomeRouter from "./components/common/HomeRouter";
 function App() {
   return (
     <BrowserRouter>
@@ -48,25 +49,10 @@ function App() {
             }
           />
 
-           <Route
-            path="/"
-            element={
-              <PublicRoute>
-                <PublicHome />
-              </PublicRoute>
-            }
-          />
+          <Route path="/" element={<HomeRouter />} />
 
           {/* User Protected Pages */}
 
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute allowedRole="User">
-                <Home/>
-              </ProtectedRoute>
-            }
-          />
           <Route
             path="/medicines"
             element={

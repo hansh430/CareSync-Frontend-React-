@@ -16,10 +16,15 @@ function UserNavbar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+    <nav
+      className="navbar navbar-expand-lg navbar-dark shadow-sm  sticky-top shadow-sm py-2"
+      style={{ backgroundColor: "#C218E8" }}
+    >
       <div className="container">
-        <Link className="navbar-brand fw-bold" to="/">
-          CareSync
+        <Link className="navbar-brand d-flex align-items-center" to="/">
+          <img src="/favicon.png" width="38" className="me-2" />
+
+          <span className="fw-bold text-white fs-3">CareSync</span>
         </Link>
 
         {/* Mobile Hamburger Button */}
@@ -69,10 +74,7 @@ function UserNavbar() {
             </li>
 
             <li className="nav-item ms-lg-2">
-              <button
-                className="btn btn-danger btn-sm"
-                onClick={handleLogout}
-              >
+              <button className="btn btn-danger btn-sm" onClick={handleLogout}>
                 Logout
               </button>
             </li>
